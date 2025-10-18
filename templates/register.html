@@ -13,7 +13,10 @@
     <div class="form_div">
         <form  method='post' action={{ url_for('api.register') }} >
             <p class="mb-3">
-                姓名：<input type="text" name="username" required/>
+                姓：<input type="text" name="fname" required/>
+            </p>
+            <p class="mb-3">
+                名：<input type="text" name="lname" required/>
             </p>
     
             <p class="mb-3">

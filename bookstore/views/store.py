@@ -81,7 +81,7 @@ def bookstore():
             '商品圖片': image
         }
 
-        return render_template('product.html', data = product, user=current_user.name)
+        return render_template('product.html', data = product, user=current_user.lname)
     
     elif 'page' in request.args:
         page = int(request.args['page'])

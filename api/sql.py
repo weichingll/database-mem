@@ -88,7 +88,7 @@ class DB:
 class Member:
     @staticmethod
     def get_member(account):
-        sql = "SELECT account, password, mid, identity, name FROM member WHERE account = %s"
+        sql = "SELECT account, password, mid, identity, fname,lname FROM member WHERE account = %s"
         return DB.fetchall(sql, (account,))
 
     @staticmethod
@@ -98,8 +98,8 @@ class Member:
 
     @staticmethod
     def create_member(input_data):
-        sql = 'INSERT INTO member (name, account, password, identity) VALUES (%s, %s, %s, %s)'
-        DB.execute_input(sql, (input_data['name'], input_data['account'], input_data['password'], input_data['identity']))
+        sql = 'INSERT INTO member (fname,lname, account, password, identity) VALUES (%s, %s, %s, %s, %s)'
+        DB.execute_input(sql, (input_data['fname'],input_data['lname'], input_data['account'], input_data['password'], input_data['identity']))
 
     @staticmethod
     def delete_product(tno, pid):
@@ -113,7 +113,7 @@ class Member:
 
     @staticmethod
     def get_role(userid):
-        sql = 'SELECT identity, name FROM member WHERE mid = %s'
+        sql = 'SELECT identity, lname FROM member WHERE mid = %s'
         return DB.fetchone(sql, (userid,))
 
 
@@ -234,7 +234,7 @@ class Order_List:
     @staticmethod
     def get_order():
         sql = '''
-            SELECT o.oid, m.name, o.price, o.ordertime
+            SELECT o.oid, m., o.price, o.ordertime
             FROM order_list o
             NATURAL JOIN member m
             ORDER BY o.ordertime DESC
@@ -270,10 +270,10 @@ class Analysis:
 
     @staticmethod
     def member_sale():
-        sql = 'SELECT SUM(price), member.mid, member.name FROM order_list, member WHERE order_list.mid = member.mid AND member.identity = %s GROUP BY member.mid, member.name ORDER BY SUM(price) DESC'
+        sql = 'SELECT SUM(price), member.mid, member.lname FROM order_list, member WHERE order_list.mid = member.mid AND member.identity = %s GROUP BY member.mid, member.lname ORDER BY SUM(price) DESC'
         return DB.fetchall(sql, ('user',))
 
     @staticmethod
     def member_sale_count():
-        sql = 'SELECT COUNT(*), member.mid, member.name FROM order_list, member WHERE order_list.mid = member.mid AND member.identity = %s GROUP BY member.mid, member.name ORDER BY COUNT(*) DESC'
+        sql = 'SELECT COUNT(*), member.mid, member.lname FROM order_list, member WHERE order_list.mid = member.mid AND member.identity = %s GROUP BY member.mid, member.lname ORDER BY COUNT(*) DESC'
         return DB.fetchall(sql, ('user',))

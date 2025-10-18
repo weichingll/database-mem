@@ -44,7 +44,7 @@ def productManager():
         return redirect(url_for('manager.edit', pid=pid))
     
     book_data = book()
-    return render_template('productManager.html', book_data = book_data, user=current_user.name)
+    return render_template('productManager.html', book_data = book_data, user=current_user.lname)
 
 def book():
     book_row = Product.get_all_product()
@@ -174,4 +174,4 @@ def orderManager():
             }
             order_detail.append(orderdetail)
 
-    return render_template('orderManager.html', orderData = order_data, orderDetail = order_detail, user=current_user.name)
+    return render_template('orderManager.html', orderData = order_data, orderDetail = order_detail, user=current_user.lname)

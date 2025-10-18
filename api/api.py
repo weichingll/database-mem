@@ -73,7 +73,8 @@ def register():
             return redirect(url_for('api.register'))
         else:
             input = { 
-                'name': request.form['username'], 
+                'fname' : request.form['fname'],
+                'lname': request.form['lname'], 
                 'account':user_account, 
                 'password':request.form['password'], 
                 'identity':request.form['identity'] 
